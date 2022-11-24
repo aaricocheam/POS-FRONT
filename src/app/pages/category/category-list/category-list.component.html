@@ -10,6 +10,13 @@
     <div class="mt-14 pt-0 overflow-hidden flex">
         <mat-drawer-container class="bg-transparent flex-auto flex">
             <mat-drawer-content class="p-gutter pt-0 flex-auto flex items-start">
+                <vex-list-table-menu
+                    class="hidden sm:block mr-6"
+                    [currentCategory]="component.getInputs.stateFilter"
+                    (filterChange)="setData($event)"
+                    [items]="component.menuItems"
+                >
+                </vex-list-table-menu>
                 <div class="card h-full overflow-hidden flex-auto">
                     <vex-list-table
                         (rowClick)="rowClick($event)"

@@ -1,6 +1,38 @@
 import { Category } from 'src/app/response/category/category.response';
 import { TableColumn } from '../../../../@vex/interfaces/table-column.interface';
 import icCategory from "@iconify/icons-ic/twotone-category"
+import { ListTableMenu } from '../../../commons/list-table-menu.interface';
+import icViewHeadLine from "@iconify/icons-ic/twotone-view-headline";
+import icLabel from "@iconify/icons-ic/twotone-label";
+
+const menuItems: ListTableMenu[] = [
+    {
+        type: "link",
+        id: "all",
+        icon: icViewHeadLine,
+        label: "Todos"
+    },
+    {
+        type: "link",
+        id: "Activo",
+        value: 1,
+        icon: icLabel,
+        label: "Activo",
+        classes: {
+            icon: "text-green"
+        }
+    },
+    {
+        type: "link",
+        id: "Inactivo",
+        value: 0,
+        icon: icLabel,
+        label: "Inactivo",
+        classes: {
+            icon: "text-gray"
+        }
+    }
+]
 
 const tableColumns: TableColumn<Category>[] = [
     {
@@ -49,6 +81,14 @@ const tableColumns: TableColumn<Category>[] = [
     }
 ]
 
+const filters = {
+    numFilter: 0,
+    textFilter: "",
+    stateFilter: null,
+    startDate: null,
+    endDate: null
+}
+
 const inputs = {
     numFilter: 0,
     textFilter: "",
@@ -60,6 +100,8 @@ const inputs = {
 export const componentSetting = {
     //ICONS
     icCategory: icCategory,
+    //LAYOUT SETTINGS
+    menuOpen: false,
     //TABLE SETTINGS
     tableColumns: tableColumns,
     initialSort: "Id",
@@ -67,5 +109,8 @@ export const componentSetting = {
     getInputs: inputs,
     buttonLabel: "EDITAR",
     buttonLabel2: "ELIMINAR",
+    //SEARCH FILTROS
+    menuItems: menuItems,
+    filters: filters,
     columnsFilter: tableColumns.map((colum) => { return { label: colum.label, property: colum.property, type: colum.type } })
 }

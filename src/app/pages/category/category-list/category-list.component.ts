@@ -6,6 +6,7 @@ import { CustomTitleService } from '../../../shared/services/custom-title.servic
 import { CategoryService } from '../../../services/category.service';
 import { componentSetting } from './category-list-config';
 import { CategoryApi } from 'src/app/response/category/category.response';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'vex-category-list',
@@ -45,6 +46,28 @@ export class CategoryListComponent implements OnInit {
         break;
     }
     return false;
+  }
+
+  setData(data: any = null) {
+    this.component.filters.stateFilter = data.value;
+    this.component.menuOpen = false;
+    this.formatGetInputs();
+  }
+
+  formatGetInputs() {
+    let inputs = {
+      numFilter: 0,
+      textFilter: "",
+      stateFilter: null,
+      startDate: null,
+      endDate: null
+    }
+
+    if (this.component.filters.stateFilter != null) {
+      inputs.stateFilter = this.component.filters.stateFilter;
+    }
+
+    this.component.getInputs = inputs;
   }
 
   CategoryEdit(row: CategoryApi) {
