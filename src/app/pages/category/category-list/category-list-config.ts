@@ -4,6 +4,27 @@ import icCategory from "@iconify/icons-ic/twotone-category"
 import { ListTableMenu } from '../../../commons/list-table-menu.interface';
 import icViewHeadLine from "@iconify/icons-ic/twotone-view-headline";
 import icLabel from "@iconify/icons-ic/twotone-label";
+import { last } from 'rxjs/operators';
+import { GenericValidators } from '@shared/validators/generic-validators';
+
+const searchOptions = [
+    {
+        label: "Nombre",
+        value: 1,
+        placeholder: "Buscar por nombre",
+        validation: [GenericValidators.defaultName],
+        validation_desc: "Solo se permite letras en esta búsqueda.",
+        min_len: 2
+    },
+    {
+        label: "Descripción",
+        value: 2,
+        placeholder: "Buscar por descripción",
+        validation: [GenericValidators.defaultDescription],
+        validation_desc: "Solo se permite letras y números en esta búsqueda.",
+        min_len: 2
+    }
+]
 
 const menuItems: ListTableMenu[] = [
     {
@@ -111,6 +132,7 @@ export const componentSetting = {
     buttonLabel2: "ELIMINAR",
     //SEARCH FILTROS
     menuItems: menuItems,
+    searchOptions: searchOptions,
     filters: filters,
     columnsFilter: tableColumns.map((colum) => { return { label: colum.label, property: colum.property, type: colum.type } })
 }
