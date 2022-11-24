@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule } from '@angular/router';
+import { tr } from 'date-fns/locale';
 import { VexRoutes } from 'src/@vex/interfaces/vex-route.interface';
 import { CustomLayoutComponent } from './custom-layout/custom-layout.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -8,6 +9,13 @@ const childrenRoutes: VexRoutes = [
   {
     path: 'estadisticas',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+    data: {
+      containerEnabled: true
+    }
+  },
+  {
+    path: 'categorias',
+    loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule),
     data: {
       containerEnabled: true
     }
