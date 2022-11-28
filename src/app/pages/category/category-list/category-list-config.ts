@@ -4,7 +4,7 @@ import icCategory from "@iconify/icons-ic/twotone-category"
 import { ListTableMenu } from '../../../commons/list-table-menu.interface';
 import icViewHeadLine from "@iconify/icons-ic/twotone-view-headline";
 import icLabel from "@iconify/icons-ic/twotone-label";
-import { last } from 'rxjs/operators';
+import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
 import { GenericValidators } from '@shared/validators/generic-validators';
 
 const searchOptions = [
@@ -121,6 +121,7 @@ const inputs = {
 export const componentSetting = {
     //ICONS
     icCategory: icCategory,
+    icCalendarMonth: icCalendarMonth,
     //LAYOUT SETTINGS
     menuOpen: false,
     //TABLE SETTINGS
@@ -133,6 +134,8 @@ export const componentSetting = {
     //SEARCH FILTROS
     menuItems: menuItems,
     searchOptions: searchOptions,
+    filters_dates_active: false,
     filters: filters,
+    datesFilterArray: ['Fecha de creación'],
     columnsFilter: tableColumns.map((colum) => { return { label: colum.label, property: colum.property, type: colum.type } })
 }

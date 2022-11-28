@@ -6,6 +6,8 @@ import { CustomTitleService } from '../../../shared/services/custom-title.servic
 import { CategoryService } from '../../../services/category.service';
 import { componentSetting } from './category-list-config';
 import { CategoryApi } from 'src/app/response/category/category.response';
+import { DatesFilter } from '@shared/functions/actions';
+import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -24,7 +26,8 @@ export class CategoryListComponent implements OnInit {
 
   constructor(
     customTitle: CustomTitleService,
-    public _categoryService: CategoryService
+    public _categoryService: CategoryService,
+    public _dialog: MatDialog
   ) {
     customTitle.set('Categoria');
   }
@@ -60,6 +63,10 @@ export class CategoryListComponent implements OnInit {
     this.formatGetInputs();
   }
 
+  datesFilterOpen() {
+    DatesFilter(this);
+  }
+
   formatGetInputs() {
     let inputs = {
       numFilter: 0,
@@ -76,6 +83,11 @@ export class CategoryListComponent implements OnInit {
 
     if (this.component.filters.stateFilter != null) {
       inputs.stateFilter = this.component.filters.stateFilter;
+    }
+
+    if (this.component.filters.startDate != "" && this.component.filters.endDate != "") {
+      inputs.startDate = this.component.filters.startDate;
+      inputs.endDate = this.component.filters.endDate;
     }
 
     this.component.getInputs = inputs;
