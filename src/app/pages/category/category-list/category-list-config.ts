@@ -92,7 +92,7 @@ const tableColumns: TableColumn<Category>[] = [
                 disable: false
             },
             {
-                buttonLabel: "ELIMNAR",
+                buttonLabel: "ELIMINAR",
                 buttonAction: "remove",
                 buttonCondition: null,
                 disable: false

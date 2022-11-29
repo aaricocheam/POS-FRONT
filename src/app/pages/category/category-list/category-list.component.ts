@@ -7,9 +7,11 @@ import { CategoryService } from '../../../services/category.service';
 import { componentSetting } from './category-list-config';
 import { CategoryApi } from 'src/app/response/category/category.response';
 import { DatesFilter } from '@shared/functions/actions';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 import { CategoryManageComponent } from '../category-manage/category-manage.component';
+import Swal from 'sweetalert2';
+import { Icon } from '@visurel/iconify-angular';
 
 @Component({
   selector: 'vex-category-list',
@@ -108,11 +110,38 @@ export class CategoryListComponent implements OnInit {
   }
 
   CategoryEdit(row: CategoryApi) {
+    const dialoConfig = new MatDialogConfig();
+    dialoConfig.data = row;
+    let dialogRef = this._dialog.open(CategoryManageComponent, {
+      data: dialoConfig,
+      disableClose: true,
+      width: '400px'
+    });
 
+    dialogRef.afterClosed().subscribe(
+      (res) => {
+        this.formatGetInputs()
+      }
+    );
   }
 
   CategoryRemove(category: any) {
-
+    Swal.fire({
+      title: `¿Realmente deseas eliminar la categoría ${category.name}?`,
+      text: "Se borrará de forma permanente!",
+      icon: "warning",
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: 'rgb(210,155,253)',
+      cancelButtonColor: 'rgb(79,109,253)',
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      width: '430px'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._categoryService.CategoryRemove(category.categoryId).subscribe(() => this.formatGetInputs())
+      }
+    });
   }
 
 }

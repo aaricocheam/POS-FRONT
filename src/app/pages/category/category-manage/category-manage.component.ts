@@ -39,6 +39,22 @@ export class CategoryManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.data != null) {
+      this.CategoryById(this.data.data.categoryId);
+    }
+  }
+
+  CategoryById(categoryId: number): void {
+    this._categoryService.CategoryById(categoryId).subscribe(
+      (resp) => {
+        this.form.reset({
+          categoryId: resp.categoryId,
+          name: resp.name,
+          description: resp.description,
+          state: resp.state
+        })
+      }
+    )
   }
 
   CategorySave(): void {
@@ -69,7 +85,14 @@ export class CategoryManageComponent implements OnInit {
   }
 
   CategoryEdit(categoryId: number): void {
-
+    this._categoryService.CategoryEdit(categoryId, this.form.value).subscribe((resp) => {
+      if (resp.isSuccess) {
+        this._alert.success('Excelente', resp.message);
+        this._dialogRef.close(true);
+      } else {
+        this._alert.warn('Atención', resp.message);
+      }
+    })
   }
 
 }
